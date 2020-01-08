@@ -1,0 +1,9 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lxs.pay" >
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application>
+        <activity android:name=".TestActivity"
+            android:screenOrientation="portrait"
+            />
+    </application>
+</manifest>

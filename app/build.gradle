@@ -1,0 +1,97 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdk
+    buildToolsVersion rootProject.ext.android.buildTools
+    defaultConfig {
+        applicationId "com.lxs.mstaar"
+        minSdkVersion rootProject.ext.android.minSdk
+        targetSdkVersion rootProject.ext.android.targetSdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+configurations{
+    all*.exclude group: 'com.lxs.android', module: 'common'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation rootProject.ext.dependencies.kotlin
+    implementation rootProject.ext.dependencies.appcompat
+    implementation rootProject.ext.dependencies.core
+    implementation rootProject.ext.dependencies.constraintlayout
+    testImplementation rootProject.ext.testDependencies.testJunit
+    androidTestImplementation rootProject.ext.testDependencies.androidTestJunit
+    androidTestImplementation rootProject.ext.testDependencies.espressoCore
+
+    implementation project(":pay")
+    //依赖分析问题解决
+    implementation project(":career")
+    implementation project(":common")
+}
+
+dynamicDependency {
+    pay {
+        debuggable = isSourceBuild("pay")
+        groupId = "com.lxs.android"
+        artifactId = "pay"
+        version = loadAARVersion("payVersion")
+    }
+
+    career {
+        debuggable = isSourceBuild("career")
+        groupId = "com.lxs.android"
+        artifactId = "career"
+        version = loadAARVersion("careerVersion")
+    }
+
+    common{
+        debuggable = isSourceBuild("common")
+        groupId = "com.lxs.android"
+        artifactId = "common"
+        version = loadAARVersion("commonVersion")
+    }
+}
+
+def loadAARVersion(String name) {
+    File localFile = project.rootProject.file('local.properties')
+    File remoteFile = project.rootProject.file('version.properties')
+    if (localFile.exists() && remoteFile.exists()) {
+        Properties properties = new Properties()
+        properties.load(localFile.newDataInputStream())
+        def version = properties.getProperty('localVersion')
+        if (version == null) {
+            properties.load(remoteFile.newDataInputStream())
+            version = properties.getProperty(name)
+        }
+        return version
+    }
+}
+
+def isSourceBuild(String name) {
+    File localFile = project.rootProject.file('local.properties')
+    File remoteFile = project.rootProject.file('version.properties')
+    if (localFile.exists() && remoteFile.exists()) {
+        Properties properties = new Properties()
+        properties.load(localFile.newDataInputStream())
+        def isDebug = properties.getProperty("${name}IsDebug")
+        if (isDebug == null) {
+            properties.load(remoteFile.newDataInputStream())
+            isDebug = properties.getProperty('${name}IsDebug', "true")
+        }
+        return isDebug.toBoolean()
+    }
+}

@@ -1,0 +1,48 @@
+apply plugin: 'com.android.library'
+apply from: './maven_local.gradle'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+
+        defaultPublishConfig 'debug'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation rootProject.ext.dependencies.appcompat
+    testImplementation rootProject.ext.testDependencies.testJunit
+    androidTestImplementation rootProject.ext.testDependencies.androidTestJunit
+    androidTestImplementation rootProject.ext.testDependencies.espressoCore
+    implementation project(":common")
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
+}
+
+mavenPublish {
+    version = "1.2.1"
+    groupId = "com.lxs.android"
+    userName = "admin"
+    password = "password"
+    contextUrl = "http://localhost:8081/artifactory"
+    repoKey = "gradle-dev-local"
+}

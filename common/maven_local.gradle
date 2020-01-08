@@ -1,0 +1,9 @@
+apply plugin: 'maven'
+uploadArchives {
+    repositories.mavenDeployer {
+        pom.version = '1.0.0-SNAPSHOT'
+        pom.artifactId = 'common'
+        pom.groupId = 'com.lxs.android'
+        repository(url: "file:///Users/liuxiaoshuai/.m2/repository/")
+    }
+}

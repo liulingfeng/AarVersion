@@ -1,0 +1,15 @@
+apply plugin: 'maven'
+uploadArchives {
+    repositories.mavenDeployer {
+        pom.version = '1.0.0-SNAPSHOT'
+        pom.artifactId = 'pay'
+        pom.groupId = 'com.lxs.android'
+        pom.whenConfigured { pom ->
+            pom.dependencies.findAll { dep -> dep.getVersion() == "unspecified" }.collect {
+                dep ->
+                    pom.dependencies.remove(dep)
+            }
+        }
+        repository(url: "file:///Users/liuxiaoshuai/.m2/repository/")
+    }
+}

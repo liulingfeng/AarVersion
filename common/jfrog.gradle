@@ -1,0 +1,63 @@
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.artifactory'
+
+def MAVEN_LOCAL_PATH = 'http://localhost:8081/artifactory'
+def ARTIFACT_ID = 'common'
+def VERSION_NAME = '1.0.5'
+def GROUP_ID = 'com.lxs.android'
+
+publishing {
+    publications {
+        aar(MavenPublication) {
+            groupId = GROUP_ID
+            artifactId = ARTIFACT_ID
+            version = VERSION_NAME
+
+            // Tell maven to prepare the generated "* .aar" file for publishing
+            artifact("$buildDir/outputs/aar/${project.getName()}-release.aar")
+            pom.withXml {
+                def dependencies = asNode().appendNode('dependencies')
+                //ModuleDependency过滤fileTree
+                configurations.implementation.allDependencies.withType(ModuleDependency) {
+                    // 过滤library引用
+                    if (it.version != "unspecified") {
+                        def dependency = dependencies.appendNode('dependency')
+                        dependency.appendNode('groupId', it.group)
+                        dependency.appendNode('artifactId', it.name)
+                        dependency.appendNode('version', it.version)
+
+                        //添加exclude
+                        if (it.excludeRules.size() > 0) {
+                            def exclusions = dependencies.appendNode("exclusions")
+                            dp.excludeRules.each { ExcludeRule ex ->
+                                def exclusion = exclusions.appendNode('exclusion')
+                                exclusion.appendNode('groupId', ex.group)
+                                exclusion.appendNode('artifactId', ex.module)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+artifactory {
+    contextUrl = MAVEN_LOCAL_PATH
+    publish {
+        repository {
+            repoKey = 'gradle-dev-local'
+            username = "admin"
+            password = "password"
+        }
+
+        defaults {
+            publications('aar')
+            publishArtifacts = true
+            // Properties to be attached to the published artifacts.
+            properties = ['qa.level': 'basic', 'dev.team': 'core']
+            // Publish generated POM files to Artifactory (true by default)
+            publishPom = true
+        }
+    }
+}

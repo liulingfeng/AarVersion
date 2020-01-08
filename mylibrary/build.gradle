@@ -1,0 +1,47 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+apply plugin: 'com.novoda.bintray-release'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // gradle sdk
+    implementation gradleApi()
+    // groovy sdk
+    implementation localGroovy()
+    implementation 'com.android.tools.build:gradle:3.5.2'
+}
+
+//uploadArchives {
+//    repositories.mavenDeployer {
+//        pom.groupId = 'com.mstong.android'
+//        pom.artifactId = 'mstDependence'
+//        pom.version = '1.0.0'
+//        // maven本地仓库的目录
+////            repository(url: uri('../DavisPlugin'))
+//        repository(url: "http://localhost:8081/artifactory/webapp/#/artifacts/browse/tree/General/example-repo-local") {
+//            authentication(userName: "admin", password: "password")
+//        }
+//    }
+//}
+
+publish {
+    groupId = "com.mstong.android"
+    artifactId = "mstDependence"
+    publishVersion = "1.0.0"
+
+    //项目描述
+    desc = 'Task timer'
+    //项目网址，建议github开源库网址
+    website = 'https://github.com/jeanboy/Android-GradlePluginTest'
+    //bintray 的用户名
+    bintrayUser = 'liulingfenggege'
+    //bintray 用户名
+    userOrg = 'liulingfenggege'
+    //API Key
+    bintrayKey = "d2e5592013f6364f67a778cd2fa53b92e0c9912a"
+    dryRun = false
+}
+
+repositories {
+    mavenCentral()
+}
