@@ -13,22 +13,23 @@ dependencies {
 
 publish {
     groupId = "com.mstong.android"
-    artifactId = "mylibrary"
-    uploadName = "mstDependence"
-    publishVersion = "1.0.0"
+    artifactId = "mstDependence"
+//    uploadName = "mstDependence"
+    publishVersion = "1.0.2"
 
     //项目描述
     desc = 'useful tool for android'
     //项目网址，建议github开源库网址
     website = 'https://github.com/liulingfeng/AarVersion'
     //bintray 的用户名
-    bintrayUser = 'liuxiaoshuai'
-    //bintray 用户名
-    userOrg = 'mstong'
+    bintrayUser = 'liulingfeng'
+    //组织名
+    userOrg = 'liulingfeng'
     repoName='enjoyPlugin'
     //API Key
-    bintrayKey = "d2e5592013f6364f67a778cd2fa53b92e0c9912a"
-//    dryRun = false
+    bintrayKey = "0317a88c37727ddb29c2039c9098a65d8d0ef022"
+    autoPublish=true
+    dryRun=false
 }
 
 repositories {
