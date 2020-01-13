@@ -22,7 +22,7 @@ public class CareerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_career);
         TextView tv = findViewById(R.id.tv);
-        tv.setText("去你麻辣隔壁的");
+        tv.setText(StringUtils.getStr());
         ImageView iv = findViewById(R.id.iv);
         Glide.with(this).load("https://bbs.ewt360.com/uc_server/avatar.php?uid=5176227&size=small").into(iv);
     }

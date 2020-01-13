@@ -8,6 +8,6 @@ package com.lxs.common;
  */
 public class StringUtils {
     public static String getStr() {
-        return "刘小帅的技术博客";
+        return "啦啦啦刘小帅的技术博客";
     }
 }

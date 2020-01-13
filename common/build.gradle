@@ -41,7 +41,7 @@ dependencies {
 }
 
 mavenPublish {
-    version = "1.0.6"
+    version = "1.0.7"
     groupId = "com.lxs.android"
     userName = "admin"
     password = "password"

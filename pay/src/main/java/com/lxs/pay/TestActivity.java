@@ -20,6 +20,6 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         TextView tv = findViewById(R.id.tv);
-        tv.setText("狗日的麻辣隔壁");
+        tv.setText(StringUtils.getStr());
     }
 }
