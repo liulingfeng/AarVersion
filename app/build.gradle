@@ -4,13 +4,18 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+def ext = rootProject.extensions.getByName("ext")
+def versionConfig = ext.android
+def androidDependencies = ext.dependencies
+def testDependencies = ext.testDependencies
+
 android {
-    compileSdkVersion rootProject.ext.android.compileSdk
-    buildToolsVersion rootProject.ext.android.buildTools
+    compileSdkVersion versionConfig.compileSdk
+    buildToolsVersion versionConfig.buildTools
     defaultConfig {
         applicationId "com.lxs.mstaar"
-        minSdkVersion rootProject.ext.android.minSdk
-        targetSdkVersion rootProject.ext.android.targetSdk
+        minSdkVersion versionConfig.minSdk
+        targetSdkVersion versionConfig.targetSdk
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -29,13 +34,13 @@ configurations{
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation rootProject.ext.dependencies.kotlin
-    implementation rootProject.ext.dependencies.appcompat
-    implementation rootProject.ext.dependencies.core
-    implementation rootProject.ext.dependencies.constraintlayout
-    testImplementation rootProject.ext.testDependencies.testJunit
-    androidTestImplementation rootProject.ext.testDependencies.androidTestJunit
-    androidTestImplementation rootProject.ext.testDependencies.espressoCore
+    implementation androidDependencies.kotlin
+    implementation androidDependencies.appcompat
+    implementation androidDependencies.core
+    implementation androidDependencies.constraintlayout
+    testImplementation testDependencies.testJunit
+    androidTestImplementation testDependencies.androidTestJunit
+    androidTestImplementation testDependencies.espressoCore
 
     implementation project(":pay")
     //依赖分析问题解决
