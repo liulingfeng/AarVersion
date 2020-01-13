@@ -90,7 +90,7 @@ def isSourceBuild(String name) {
         def isDebug = properties.getProperty("${name}IsDebug")
         if (isDebug == null) {
             properties.load(remoteFile.newDataInputStream())
-            isDebug = properties.getProperty('${name}IsDebug', "true")
+            isDebug = properties.getProperty("${name}IsDebug", "true")
         }
         return isDebug.toBoolean()
     }
