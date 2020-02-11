@@ -1,6 +1,6 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
-//apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'com.novoda.bintray-release'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -11,38 +11,38 @@ dependencies {
     implementation 'com.android.tools.build:gradle:3.5.2'
 }
 
-//publish {
-//    groupId = "com.mstong.android"
-//    artifactId = "mstDependence"
-////    uploadName = "mstDependence"
-//    publishVersion = "1.0.2"
-//
-//    //项目描述
-//    desc = 'useful tool for android'
-//    //项目网址，建议github开源库网址
-//    website = 'https://github.com/liulingfeng/AarVersion'
-//    //bintray 的用户名
-//    bintrayUser = 'liulingfeng'
-//    //组织名
-//    userOrg = 'liulingfeng'
-//    repoName='enjoyPlugin'
-//    //API Key
-//    bintrayKey = "0317a88c37727ddb29c2039c9098a65d8d0ef022"
-//    autoPublish=true
-//    dryRun=false
-//}
+publish {
+    groupId = "com.mstong.android"
+    artifactId = "mstDependence"
+//    uploadName = "mstDependence"
+    publishVersion = "1.1.3"
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            pom.groupId = 'com.mstong.android'
-            pom.artifactId = 'mstDependence'
-            pom.version = 10.8
-            // maven本地仓库的目录
-            repository(url: uri('../DavisPlugin'))
-        }
-    }
+    //项目描述
+    desc = 'useful tool for android'
+    //项目网址，建议github开源库网址
+    website = 'https://github.com/liulingfeng/AarVersion'
+    //bintray 的用户名
+    bintrayUser = 'liulingfeng'
+    //组织名
+    userOrg = 'liulingfeng'
+    repoName='enjoyPlugin'
+    //API Key
+    bintrayKey = "0317a88c37727ddb29c2039c9098a65d8d0ef022"
+    autoPublish=true
+    dryRun=false
 }
+
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//            pom.groupId = 'com.mstong.android'
+//            pom.artifactId = 'mstDependence'
+//            pom.version = 12.8
+//            // maven本地仓库的目录
+//            repository(url: uri('../DavisPlugin'))
+//        }
+//    }
+//}
 
 repositories {
     mavenCentral()

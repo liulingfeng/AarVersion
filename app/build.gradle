@@ -20,16 +20,35 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        sign_config {
+            keyAlias 'mistong'
+            keyPassword 'mstandroid2015'
+            storeFile file('../app/keystore')
+            storePassword 'mstandroid2015'
+        }
+    }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.sign_config
+            shrinkResources true
+            debuggable false
+        }
+        debug {
+            signingConfig signingConfigs.sign_config
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            shrinkResources false
+            debuggable true
         }
     }
 }
 
-configurations{
+configurations {
     all*.exclude group: 'com.lxs.android', module: 'common'
+    all*.exclude group: 'com.lxs.android', module: 'core'
 }
 
 dependencies {
@@ -46,6 +65,7 @@ dependencies {
     //依赖分析问题解决
     implementation project(":career")
     implementation project(":common")
+    implementation project(":core")
 }
 
 dynamicDependency {
@@ -63,11 +83,18 @@ dynamicDependency {
         version = loadAARVersion("careerVersion")
     }
 
-    common{
-        debuggable = isSourceBuild("common")
+    common {
+        debuggable = isSourceBuild("commonIsDebug")
         groupId = "com.lxs.android"
         artifactId = "common"
         version = loadAARVersion("commonVersion")
+    }
+
+    core {
+        debuggable = isSourceBuild("coreIsDebug")
+        groupId = "com.lxs.android"
+        artifactId = "core"
+        version = loadAARVersion("coreVersion")
     }
 }
 

@@ -29,7 +29,7 @@ class MavenPublishPlugin implements Plugin<Project> {
                         groupId = publishExt.groupId
                         artifactId = getArtifactName(targetProject, publishExt.artifactId)
                         version = publishExt.version
-
+                        println "当前上传版本${publishExt.version}"
 //                        if (publishExt.version.contains("SNAPSHOT")) {
 //                            artifact("$targetProject.buildDir/outputs/aar/${targetProject.getName()}-debug.aar")
 //                        } else {
@@ -50,7 +50,7 @@ class MavenPublishPlugin implements Plugin<Project> {
                                     //添加exclude
                                     if (it.excludeRules.size() > 0) {
                                         def exclusions = dependencies.appendNode("exclusions")
-                                        dp.excludeRules.each { ExcludeRule ex ->
+                                        it.excludeRules.each { ExcludeRule ex ->
                                             def exclusion = exclusions.appendNode('exclusion')
                                             exclusion.appendNode('groupId', ex.group)
                                             exclusion.appendNode('artifactId', ex.module)

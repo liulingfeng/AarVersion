@@ -17,9 +17,9 @@ class EasyDependencyPlugin implements Plugin<Project> {
             throw new IllegalStateException("please apply plugin easy-dependency to root project")
         }
         project.subprojects {
-            it.plugins.apply(MavenPublishPlugin)
             it.plugins.apply(DependencyResolvePlugin)
             it.plugins.apply(AutoPublishPlugin)
+            it.plugins.apply(MavenPublishPlugin)
         }
     }
 }

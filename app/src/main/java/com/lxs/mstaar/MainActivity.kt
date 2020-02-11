@@ -7,6 +7,7 @@ import android.util.Log
 import com.lxs.career.CareerActivity
 import com.lxs.pay.TestActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import top.zibin.luban.Luban
 import java.lang.Exception
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.locks.ReentrantLock
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        Luban.with(this)
         tv.setOnClickListener {
             val intent = Intent(this, TestActivity::class.java)
             startActivity(intent)

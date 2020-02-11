@@ -33,14 +33,13 @@ dependencies {
     testImplementation rootProject.ext.testDependencies.testJunit
     androidTestImplementation rootProject.ext.testDependencies.androidTestJunit
     androidTestImplementation rootProject.ext.testDependencies.espressoCore
-    implementation project(":common")
+    implementation project(":core")
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 }
 
-//支持手动更新版本
 mavenPublish {
-    version = "1.2.2"
+    version = "1.2.4"
     groupId = "com.lxs.android"
     userName = "admin"
     password = "password"

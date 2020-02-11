@@ -1,1 +1,1 @@
-include ':app', ':pay', ':mylibrary', ':career', ':common'
+include ':app', ':pay', ':mylibrary', ':career', ':common', ':core'

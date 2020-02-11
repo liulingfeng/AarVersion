@@ -1,9 +1,11 @@
 package com.lxs.mylibrary
 
 import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 
 class WriteVersionTask extends DefaultTask {
+    @Optional
     String defaultVersion = "1.0.0"
 
     public WriteVersionTask() {
@@ -19,7 +21,18 @@ class WriteVersionTask extends DefaultTask {
         versionFile.eachLine { line ->
             if (line.contains("version =")) {
                 def buf = new StringBuffer(line)
-                defaultVersion = parseXml("/Users/liuxiaoshuai/Downloads/artifactory-oss-6.16.0/backup/backup-daily/current/repositories/gradle-dev-local/com/lxs/android/${project.name}/maven-metadata.xml")
+                def projectName = ""
+                if (project.name.startsWith("ewt_")) {
+                    projectName = project.name.substring(4, project.name.length())
+                }else {
+                    projectName = project.name
+                }
+                if ("comlib2".equalsIgnoreCase(project.name) || "core".equalsIgnoreCase(project.name)) {
+                    defaultVersion = parseXml("http://172.16.9.78:8081/artifactory/gradle-dev-local/com/mistong/android/${projectName}/maven-metadata.xml")
+                } else {
+                    defaultVersion = parseXml("http://172.16.9.78:8081/artifactory/gradle-dev-local/com/mistong/business/${projectName}/maven-metadata.xml")
+                }
+                println "${projectName}线上最新版本${defaultVersion}"
                 if (defaultVersion != "") {
                     def versionCode = defaultVersion.replace(".", "").toInteger() + 1
                     int amt = versionCode / 100
@@ -27,6 +40,7 @@ class WriteVersionTask extends DefaultTask {
                     int qw = versionCode % 10
                     buf.replace(buf.indexOf("version ="), buf.length(), "version = \"${amt}.${sw}.${qw}\"")
                     line = buf.toString()
+                    println "版本更新成功${versionCode}"
                 }
             }
             updatedFileText.append(line + "\n")
