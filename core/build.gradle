@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply from:'./maven_local.gradle'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -25,14 +25,10 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     api project(":common")
-    api "top.zibin:Luban:1.1.8"
+    api 'top.zibin:Luban:1.1.8'
 }
 
 //支持手动更新版本
