@@ -1,0 +1,63 @@
+dynamicDependency {
+    pay {
+        debuggable = isSourceBuild("payIsDebug")
+        groupId = "com.lxs.android"
+        artifactId = "pay"
+        version = loadAARVersion("payVersion")
+    }
+
+    career {
+        debuggable = isSourceBuild("careerIsDebug")
+        groupId = "com.lxs.android"
+        artifactId = "career"
+        version = loadAARVersion("careerVersion")
+    }
+
+    common {
+        debuggable = isSourceBuild("commonIsDebug")
+        groupId = "com.lxs.android"
+        artifactId = "common"
+        version = loadAARVersion("commonVersion")
+    }
+
+    core {
+        debuggable = isSourceBuild("coreIsDebug")
+        groupId = "com.lxs.android"
+        artifactId = "core"
+        version = loadAARVersion("coreVersion")
+    }
+}
+
+def loadAARVersion(String name) {
+    File localFile = project.rootProject.file('local.properties')
+    File remoteFile = project.rootProject.file('version.properties')
+    Properties properties = new Properties()
+    def version = null
+    if (localFile.exists()) {
+        properties.load(localFile.newDataInputStream())
+        version = properties.getProperty('localVersion')
+        return version
+    }
+    if (remoteFile.exists()) {
+        properties.load(remoteFile.newDataInputStream())
+        version = properties.getProperty(name)
+    }
+    return version
+}
+
+def isSourceBuild(String name) {
+    File localFile = project.rootProject.file('local.properties')
+    File remoteFile = project.rootProject.file('version.properties')
+    Properties properties = new Properties()
+    def isDebug = true
+    if (localFile.exists()) {
+        properties.load(localFile.newDataInputStream())
+        isDebug = properties.getProperty(name)
+        isDebug = isDebug != null ? isDebug.toBoolean() : true
+        return isDebug
+    }
+    if (remoteFile.exists()) {
+        isDebug = false
+    }
+    return isDebug
+}

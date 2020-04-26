@@ -8,6 +8,6 @@ package com.lxs.common;
  */
 public class StringUtils {
     public static String getStr() {
-        return "德玛西亚种子";
+        return "好好说话";
     }
 }

@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
 apply from: './maven_local.gradle'
-apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion 29
@@ -33,13 +32,17 @@ android {
 }
 
 dependencies {
-    api fileTree(include: ['*.jar'], dir: 'libs')
+    api fileTree(dir: 'libs', include: ['*.jar'])
 
+    api rootProject.ext.dependencies.kotlin
+    api rootProject.ext.dependencies.constraintlayout
+    api rootProject.ext.dependencies.appcompat
+    api 'com.github.bumptech.glide:glide:4.10.0'
 }
 
 //支持手动更新版本
 mavenPublish {
-    version = "1.0.9"
+    version = "1.1.0"
     groupId = "com.lxs.android"
     userName = "admin"
     password = "password"

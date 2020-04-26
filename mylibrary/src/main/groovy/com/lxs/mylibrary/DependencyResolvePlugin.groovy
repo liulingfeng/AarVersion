@@ -16,7 +16,6 @@ class DependencyResolvePlugin implements Plugin<Project> {
         NamedDomainObjectContainer<DependencyResolveExt> dependencyResolveContainer = targetProject.container(DependencyResolveExt.class)
         targetProject.extensions.add("dynamicDependency", dependencyResolveContainer)
         targetProject.afterEvaluate {
-            targetProject.defaultTasks("clean")
             Map<Project, DependencyResolveExt> resolveExtMap = new HashMap<>()
             targetProject.configurations.all { Configuration configuration ->
                 if (configuration.dependencies.size() == 0) {

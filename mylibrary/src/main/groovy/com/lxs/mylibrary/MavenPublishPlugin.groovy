@@ -29,7 +29,6 @@ class MavenPublishPlugin implements Plugin<Project> {
                         groupId = publishExt.groupId
                         artifactId = getArtifactName(targetProject, publishExt.artifactId)
                         version = publishExt.version
-                        println "当前上传版本${publishExt.version}"
 //                        if (publishExt.version.contains("SNAPSHOT")) {
 //                            artifact("$targetProject.buildDir/outputs/aar/${targetProject.getName()}-debug.aar")
 //                        } else {

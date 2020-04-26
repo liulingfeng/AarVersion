@@ -30,12 +30,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation rootProject.ext.dependencies.appcompat
-    testImplementation rootProject.ext.testDependencies.testJunit
-    androidTestImplementation rootProject.ext.testDependencies.androidTestJunit
-    androidTestImplementation rootProject.ext.testDependencies.espressoCore
     implementation project(":core")
-    implementation 'com.mistong.wisdomtooth:chat-ui:1.0.8'
 }
 
 //支持手动更新版本

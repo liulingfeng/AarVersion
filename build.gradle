@@ -2,7 +2,6 @@ apply plugin: 'com.mstong.dependence'
 
 buildscript {
     apply from: './config.gradle'
-//    apply from: 'http://172.16.56.3:8081/artifactory/config.gradle'
     repositories {
         maven {
             url uri('DavisPlugin')
@@ -25,13 +24,13 @@ buildscript {
 
 allprojects {
     repositories {
+        def localUrl = mavenLocal().getUrl()
         google()
         jcenter()
-        maven { url 'file:///Users/liuxiaoshuai/.m2/repository/' }
+        maven { url localUrl }
         maven {
             url "http://localhost:8081/artifactory/public/"
         }
-        maven { url "http://172.16.9.78:8081/artifactory/public/" }
     }
 
     //添加 utf-8 的支持，避免中文注释生成 Javadoc 文件出现编码错误
